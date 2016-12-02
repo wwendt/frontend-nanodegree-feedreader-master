@@ -60,12 +60,12 @@ $(function() {
             $('.menu-icon-link').trigger('click');
         });
 
-        it('shows when menu is clicked', function(){
-            expect($('.menu')).toBeVisible();
+        it('hides when necessary', function(){
+            expect($('.menu-hidden').is(':visible')).toBe(false);
         });
 
-        it('goes hides when necessary', function(){
-            expect($('.menu').is(':visible')).toBe(false);
+        it('shows when clicked', function(){
+            expect($('.menu-hidden').is(':visible')).toBe(true);
         })
 
     });
@@ -83,6 +83,18 @@ $(function() {
           */
 
     /* TODO: Write a new test suite named "Initial Entries" */
+
+    describe('Initial Entries', function(){
+
+        it('calls loadFeed', function(){
+            expect(loadFeed).toHaveBeenTriggered();
+        });
+
+        it('there is entry in feed container', function(){
+            expect($('.feed').toContainElement($('.entry')));
+        });
+
+    });
 
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
