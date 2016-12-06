@@ -3,7 +3,7 @@
  * This is the spec file that Jasmine will read and contains
  * all of the tests that will be run against your application.
  */
-document.write('<script src="jasmine/lib/jasmine-2.1.2/Jasmine-jQuery.js"></script>');
+document.write('<script type="text/javascript" src="jasmine/lib/jasmine-2.1.2/Jasmine-jQuery.js"></script>');
  
 
 /* We're placing all of our tests within the $() function,
@@ -97,12 +97,18 @@ $(function() {
 
     describe('Initial Entries', function(){
 
-        it('calls loadFeed', function(){
-            expect(loadFeed).toHaveBeenTriggered();
-        });
+        beforeEach(function(done){
+            loadFeed(0, done);
+        })
 
-        it('there is entry in feed container', function(){
-            expect($('.feed').toContainElement($('.entry')));
+        //it('calls loadFeed', function(){
+          //  expect(loadFeed).toHaveBeenTriggered();
+        //});
+
+        it('there is entry in feed container', function(done){
+            var lengthList = $('.feed .entry').length;
+            expect(lengthList).toBeGreaterThan(0);
+            done();
         });
 
     });
@@ -116,8 +122,27 @@ $(function() {
 
     /* TODO: Write a new test suite named "New Feed Selection"
 
+
+
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+    describe('New Feed Selection', function(){
+        var feedContent;
+        //var feedContent1;
+
+        beforeEach(function(done){
+            loadFeed(1, done);
+            feedContent = $('.feed').html();
+        });
+
+        it('Changes the content', function(done){
+            expect(feedContent).not.toEqual($('.feed').html());
+            loadFeed(0, done);
+        })
+
+
+    })     
 }());
