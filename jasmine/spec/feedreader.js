@@ -37,7 +37,7 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
+        /*  Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
@@ -46,29 +46,39 @@ $(function() {
             for (var i = 0; i < allFeeds.length; i++) {
                 console.log(allFeeds.length);
                 expect(allFeeds[i].url).toBeDefined();
+                expect(allFeeds[i].url).not.toBe(null);
             }
         });
 
 
-        /* TODO: Write a test that loops through each feed
+        /* : Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
         it('Name is there', function() {
             for (var i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].name).toBeDefined();
+                expect(allFeeds[i].name).not.toBe(null);
             }
         });
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+    /* : Write a new test suite named "The menu" */
+
+    describe('the menu', function() {
+        it('menu is hidden', function(){
+            expect($("body").hasClass('menu-hidden')).toBe(true);
+        });
+    });
 
     describe('the menu stuff', function() {
 
         beforeEach(function() {
             $('.menu-icon-link').trigger('click');
         });
+
+        
 
         it('hides when necessary', function() {
             expect($('.menu-hidden').is(':visible')).toBe(false);
@@ -130,12 +140,21 @@ $(function() {
 
     describe('New Feed Selection', function() {
         var feedContent;
-        //var feedContent1;
+        var feedContent1;
 
         beforeEach(function(done) {
-            loadFeed(1, done);
-            feedContent = $('.feed').html();
+            loadFeed(0, function(){
+                feedContent = ($('.feed').html());
+            });
+            //new feed
+            loadFeed(1, function() {
+                feedContent1 = ($('.feed').html());
+                done();
+            })
+            
         });
+
+       
 
         it('Changes the content', function(done) {
             expect(feedContent).not.toEqual($('.feed').html());
