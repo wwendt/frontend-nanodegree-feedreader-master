@@ -46,7 +46,7 @@ $(function() {
             for (var i = 0; i < allFeeds.length; i++) {
                 console.log(allFeeds.length);
                 expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].url).not.toBe(null);
+                expect(allFeeds[i].url).not.toBe("");
             }
         });
 
