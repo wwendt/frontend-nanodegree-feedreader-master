@@ -58,7 +58,7 @@ $(function() {
         it('Name is there', function() {
             for (var i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name).not.toBe(null);
+                expect(allFeeds[i].name).not.toEqual("");
             }
         });
     });
@@ -110,9 +110,7 @@ $(function() {
             loadFeed(0, done);
         });
 
-        //it('calls loadFeed', function(){
-        //  expect(loadFeed).toHaveBeenTriggered();
-        //});
+        
 
         it('there is entry in feed container', function(done) {
             var lengthList = $('.feed .entry').length;
@@ -140,25 +138,30 @@ $(function() {
 
     describe('New Feed Selection', function() {
         var feedContent;
-        var feedContent1;
+       // var feedContent1;
 
         beforeEach(function(done) {
             loadFeed(0, function(){
-                feedContent = ($('.feed').html());
-            });
-            //new feed
-            loadFeed(1, function() {
-                feedContent1 = ($('.feed').html());
+                feedContent = $('.feed').html();
                 done();
-            })
+            });
+            
+            
+            //new feed
+            
             
         });
 
        
 
         it('Changes the content', function(done) {
-            expect(feedContent).not.toEqual($('.feed').html());
-            loadFeed(0, done);
+          //  console.log(feedContent);
+            //console.log(feedContent1);
+            loadFeed(1, function(){
+                expect($('.feed').html()).not.toEqual(feedContent);
+                done();
+            });
+            
         });
 
 
